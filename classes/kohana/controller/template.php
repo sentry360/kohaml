@@ -32,13 +32,12 @@ abstract class Kohana_Controller_Template extends Controller {
 	 */
 	public function before()
 	{
-		// Load the template
-		$this->template = (Kohana::config('kohaml.on') && $this->kohaml)
-						? new Haml($this->template)
-						: new View($this->template);
-
 		if ($this->auto_render === TRUE)
 		{
+			if (Kohana::config('kohaml.on') && $this->kohaml)
+			{
+				$this->template = new Haml($this->template);
+			}
 			// Load the template
 			$this->template = View::factory($this->template);
 		}
